@@ -64,3 +64,6 @@ cp -p doc/build/man/%{srcname}.1 %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/%{srcname}.1.*
 
 %changelog
+* Sat Oct 21 2023 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> 1.7.0-0.1
+- Initial package release
+
