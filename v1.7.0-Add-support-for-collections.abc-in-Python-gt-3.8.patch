@@ -1,0 +1,34 @@
+From 50bebe4888cb3e838c0ae552f27cece9d4ec1256 Mon Sep 17 00:00:00 2001
+From: Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+Date: Fri, 15 Jul 2022 23:27:37 +0200
+Subject: [PATCH] Add support for collections.abc in Python >=3.8
+
+---
+ reclass/values/parser_funcs.py | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/reclass/values/parser_funcs.py b/reclass/values/parser_funcs.py
+index db34cebc..21952caf 100644
+--- a/reclass/values/parser_funcs.py
++++ b/reclass/values/parser_funcs.py
+@@ -14,6 +14,11 @@
+ import pyparsing as pp
+ import six
+ 
++try:
++    collectionsAbc = collections.abc
++except AttributeError:
++    collectionsAbc = collections
++
+ tags = enum.Enum('Tags', ['STR', 'REF', 'INV'])
+ 
+ _OBJ = 'OBJ'
+@@ -49,7 +54,7 @@ def _asList(x):
+     return x
+ 
+ def listify(w, modifier=_asList):
+-    if (isinstance(w, collections.Iterable) and
++    if (isinstance(w, collectionsAbc.Iterable) and
+             not isinstance(w, six.string_types)):
+         cls = type(w)
+         if cls == pp.ParseResults:
